@@ -1,7 +1,5 @@
 # logos-mix-demo-chat-ui
 
-Qt6-based chat UI (plugin and standalone app) for the Logos mixnet testnet, showcasing messaging over mix nodes and peer discovery via logos-delivery.
-
 This app is a POC demonstrating 2 functionalities via logos-delivery using a custom stack:
 
 1. Sending messages via [libp2p based mixnet](https://lip.logos.co/ift-ts/raw/mix.html)
