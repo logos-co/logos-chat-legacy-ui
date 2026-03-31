@@ -1,5 +1,14 @@
 # logos-mix-demo-chat-ui
 
+Qt6-based chat UI (plugin and standalone app) for the Logos mixnet testnet, showcasing messaging over mix nodes and peer discovery via logos-delivery.
+
+This app is a POC demonstrating 2 functionalities via logos-delivery using a custom stack:
+
+1. Sending messages via [libp2p based mixnet](https://lip.logos.co/ift-ts/raw/mix.html)
+2. Using new [extended kad discovery](https://lip.logos.co/ift-ts/raw/extended-kad-disco.html) protocol for discovering peers with mix capability.
+
+Note that this is targeted for Logos testnet v0.1.
+
 ## How to Build
 
 ### Using Nix (Recommended)
@@ -15,6 +24,7 @@ nix build '.#default'
 ```
 
 The result will include:
+
 - `/lib/chat_ui.dylib` (or `.so` on Linux) - The Chat UI plugin
 
 #### Build Individual Components
@@ -47,6 +57,7 @@ The compiled artifacts can be found at `result/`
 #### Nix Organization
 
 The nix build system is organized into modular files in the `/nix` directory:
+
 - `nix/default.nix` - Common configuration (dependencies, flags, metadata)
 - `nix/lib.nix` - UI plugin compilation
 - `nix/app.nix` - Standalone Qt application compilation
@@ -56,6 +67,7 @@ The nix build system is organized into modular files in the `/nix` directory:
 When built with Nix:
 
 **Library build (`nix build '.#logos-chat-ui-lib'`):**
+
 ```
 result/
 └── lib/
@@ -63,6 +75,7 @@ result/
 ```
 
 **App build (`nix build '.#app'`):**
+
 ```
 result/
 ├── bin/
@@ -83,11 +96,13 @@ result/
 ## Requirements
 
 ### Build Tools
+
 - CMake (3.16 or later)
 - Ninja build system
 - pkg-config
 
 ### Dependencies
+
 - Qt6 (qtbase)
 - Qt6 Widgets (included in qtbase)
 - Qt6 Remote Objects (qtremoteobjects)
@@ -103,6 +118,7 @@ result/
 - abseil-cpp
 
 ### QML Hot Reload
+
 During development, you can enable QML hot reload by setting an environment variable:
 
 ```bash
@@ -125,13 +141,16 @@ After building the app with `nix build '.#app'`, you can run it:
 ### Expected outputs:
 
 1.  Once the app is up and running, you should see the UI with the following:
+
   - Status shown as Ready
   - LP Peer count increasing over time before stabilizing
   - Mix peer count increasing over time before stabilizing
   - Warning message `Waiting for network peers...` disappears once 3 mix nodes are discovered.
+
 2.  After sending a message from the app (which is possible once the warning message disappears), the app should display the same message in the `Messages` section.
     Note that it takes some time for this to happen due to latency introduced by mix nodes.
 3.  After sending a message, there are two methods to check if the message was delivered successfully:
+
   - The message appears in the `Messages` section in the UI.
   - The following logs appear in the console indicating success:
 
